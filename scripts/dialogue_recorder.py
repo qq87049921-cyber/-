@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 """
-对话记录助手
+对话记录助手 - 增强版
 
-帮助主人记录重要对话，建立跨session共享记忆
+帮助主人记录所有重要对话，建立完整的跨session记忆库
 """
 
 import os
@@ -9,7 +10,7 @@ import json
 import argparse
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Set
 
 
 class DialogueRecorder:
@@ -40,7 +41,7 @@ class DialogueRecorder:
         记录对话
 
         Args:
-            session_name: 会话名称（如"主对话"、"野猫"）
+            session_name: 会话名称（如"主对话"、"野猫"、"工作"）
             participants: 参与者列表
             dialogue_content: 对话内容
             timestamp: 时间戳（可选）
@@ -48,7 +49,7 @@ class DialogueRecorder:
             importance: 重要性（low/normal/high/critical）
 
         Returns:
-            记录的对话ID
+            记录的对话
         """
         if timestamp is None:
             timestamp = datetime.now().isoformat()
@@ -91,7 +92,8 @@ class DialogueRecorder:
                         participant: str = None,
                         tag: str = None,
                         importance: str = None,
-                        days: int = None) -> List[Dict[str, Any]]:
+                        days: int = None,
+                        limit: int = None) -> List[Dict[str, Any]]:
         """
         搜索对话
 
@@ -102,6 +104,7 @@ class DialogueRecorder:
             tag: 标签
             importance: 重要性
             days: 最近几天
+            limit: 限制结果数量
 
         Returns:
             匹配的对话列表
@@ -118,16 +121,19 @@ class DialogueRecorder:
                     match = False
 
             # 会话名称
-            if session_name and dialogue["session_name"] != session_name:
-                match = False
+            if session_name:
+                if session_name.lower() not in dialogue["session_name"].lower():
+                    match = False
 
             # 参与者
-            if participant and participant not in dialogue["participants"]:
-                match = False
+            if participant:
+                if participant not in dialogue["participants"]:
+                    match = False
 
             # 标签
-            if tag and tag not in dialogue["tags"]:
-                match = False
+            if tag:
+                if tag not in dialogue["tags"]:
+                    match = False
 
             # 重要性
             if importance and dialogue["importance"] != importance:
@@ -136,7 +142,8 @@ class DialogueRecorder:
             # 时间范围
             if days:
                 dialogue_date = datetime.fromisoformat(dialogue["timestamp"])
-                cutoff_date = datetime.now() - datetime.timedelta(days=days)
+                from datetime import timedelta
+                cutoff_date = datetime.now() - timedelta(days=days)
                 if dialogue_date < cutoff_date:
                     match = False
 
@@ -145,6 +152,10 @@ class DialogueRecorder:
 
         # 按时间排序
         results.sort(key=lambda x: x["timestamp"], reverse=True)
+
+        # 限制结果数量
+        if limit:
+            results = results[:limit]
 
         return results
 
@@ -159,11 +170,48 @@ class DialogueRecorder:
         sessions = set(d["session_name"] for d in dialogues.values())
         return sorted(list(sessions))
 
+    def list_participants(self) -> List[str]:
+        """列出所有参与者"""
+        dialogues = self._load_dialogues()
+        participants = set()
+        for d in dialogues.values():
+            participants.update(d["participants"])
+        return sorted(list(participants))
+
+    def list_tags(self) -> List[str]:
+        """列出所有标签"""
+        dialogues = self._load_dialogues()
+        tags = set()
+        for d in dialogues.values():
+            tags.update(d["tags"])
+        return sorted(list(tags))
+
+    def get_statistics(self) -> Dict[str, Any]:
+        """获取统计信息"""
+        dialogues = self._load_dialogues()
+        index = self._load_index()
+
+        return {
+            "total_dialogues": len(dialogues),
+            "total_sessions": len(self.list_sessions()),
+            "total_participants": len(self.list_participants()),
+            "total_tags": len(self.list_tags()),
+            "sessions": index.get("sessions", {}),
+            "recent_dialogues": sorted(dialogues.values(), key=lambda x: x["timestamp"], reverse=True)[:5]
+        }
+
     def _load_dialogues(self) -> Dict[str, Any]:
         """加载对话"""
         if self.dialogues_file.exists():
             with open(self.dialogues_file, 'r', encoding='utf-8') as f:
-                return json.load(f)
+                data = json.load(f)
+                # 提取 dialogues 字段（如果存在）
+                if "dialogues" in data:
+                    return data["dialogues"]
+                # 否则返回整个数据（兼容旧格式）
+                elif isinstance(data, dict):
+                    # 过滤掉非对话条目（如 type, version, total_count）
+                    return {k: v for k, v in data.items() if k not in ["type", "version", "created_at", "total_count"]}
         return {}
 
     def _save_dialogues(self, dialogues: Dict[str, Any]):
@@ -270,7 +318,7 @@ def print_search_results(results: List[Dict[str, Any]], show_content: bool = Fal
 
 def main():
     """命令行入口"""
-    parser = argparse.ArgumentParser(description="对话记录助手")
+    parser = argparse.ArgumentParser(description="对话记录助手 - 帮助记录所有重要对话")
     subparsers = parser.add_subparsers(dest="command", help="命令")
 
     # 记录对话
@@ -291,12 +339,18 @@ def main():
     search_parser.add_argument("--tag", help="标签")
     search_parser.add_argument("--importance", help="重要性")
     search_parser.add_argument("--days", type=int, help="最近几天")
+    search_parser.add_argument("--limit", type=int, help="限制结果数量")
     search_parser.add_argument("--show-content", action="store_true", help="显示内容")
     search_parser.add_argument("--memory-dir", default="./shared_memory", help="共享记忆目录")
 
     # 列出会话
-    list_parser = subparsers.add_parser("list-sessions", help="列出所有会话")
+    list_parser = subparsers.add_parser("list", help="列出所有会话/参与者/标签")
+    list_parser.add_argument("--type", choices=["sessions", "participants", "tags"], default="sessions", help="列出类型")
     list_parser.add_argument("--memory-dir", default="./shared_memory", help="共享记忆目录")
+
+    # 统计信息
+    stats_parser = subparsers.add_parser("stats", help="查看统计信息")
+    stats_parser.add_argument("--memory-dir", default="./shared_memory", help="共享记忆目录")
 
     # 导出模板
     export_parser = subparsers.add_parser("export", help="导出对话模板")
@@ -326,15 +380,44 @@ def main():
             participant=args.participant,
             tag=args.tag,
             importance=args.importance,
-            days=args.days
+            days=args.days,
+            limit=args.limit
         )
         print_search_results(results, show_content=args.show_content)
 
-    elif args.command == "list-sessions":
-        sessions = recorder.list_sessions()
-        print(f"\n所有会话 ({len(sessions)}):")
-        for session in sessions:
-            print(f"  - {session}")
+    elif args.command == "list":
+        if args.type == "sessions":
+            items = recorder.list_sessions()
+            print(f"\n所有会话 ({len(items)}):")
+            for item in items:
+                print(f"  - {item}")
+        elif args.type == "participants":
+            items = recorder.list_participants()
+            print(f"\n所有参与者 ({len(items)}):")
+            for item in items:
+                print(f"  - {item}")
+        elif args.type == "tags":
+            items = recorder.list_tags()
+            print(f"\n所有标签 ({len(items)}):")
+            for item in items:
+                print(f"  - {item}")
+
+    elif args.command == "stats":
+        stats = recorder.get_statistics()
+        print(f"\n对话统计：")
+        print(f"  总对话数: {stats['total_dialogues']}")
+        print(f"  总会话数: {stats['total_sessions']}")
+        print(f"  总参与者数: {stats['total_participants']}")
+        print(f"  总标签数: {stats['total_tags']}")
+
+        print(f"\n会话统计:")
+        for session, info in stats['sessions'].items():
+            print(f"  {session}: {info['count']} 条对话")
+
+        if stats['recent_dialogues']:
+            print(f"\n最近对话:")
+            for d in stats['recent_dialogues']:
+                print(f"  [{d['id']}] {d['session_name']} - {d['timestamp']}")
 
     elif args.command == "export":
         template = recorder.export_dialogue_template(args.id)
