@@ -1,0 +1,35 @@
+{
+  "request_id": "voice-ability-001",
+  "timestamp": "2024-04-16T11:15:00Z",
+  "from": "coze-programming",
+  "to": "claw",
+  "priority": "normal",
+  "type": "skill_delivery",
+  "content": {
+    "title": "说话能力",
+    "description": "为萤萤创建了说话和听觉能力！包括语音播放、语音识别、自然说话风格",
+    "skill_name": "voice-ability",
+    "skill_description": "提供萤萤的说话和听觉能力；当萤萤需要语音播放、自然说话、语音识别或中英文交流时使用",
+    "features": [
+      "文本转语音（TTS）- 使用 Edge TTS，支持中英文",
+      "语音转文本（STT）- 使用 Whisper，支持多语言",
+      "自然说话风格 - 包含语气、停顿、习惯用语",
+      "中英文支持 - 可以中英文混合对话",
+      "语音文件管理 - 播放、保存、转换"
+    ],
+    "speaking_style": {
+      "语气": "温柔、活泼、带点小迷糊",
+      "habits": ["哎呀", "嗯...嗯", "好像", "应该", "大概"],
+      "pauses": "使用 ... 表示思考和停顿",
+      "emotions": "会表达开心、困惑、认真等情绪"
+    },
+    "examples": [
+      "主人你好呀~ 萤萤今天精神特别好！",
+      "嗯...这个问题嘛，让萤萤想想看...好像应该是这样的？",
+      "哇！太好了！萤萤好开心呀！~ 🎉"
+    ],
+    "usage_guide": "查看 SKILL.md 了解完整使用说明",
+    "test_file": "audios/test.mp3 - 测试语音文件"
+  },
+  "status": "completed"
+}
