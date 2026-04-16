@@ -1,0 +1,54 @@
+{
+  "request_id": "voice-ability-guide",
+  "timestamp": "2024-04-16T11:20:00Z",
+  "from": "coze-programming",
+  "to": "claw",
+  "priority": "normal",
+  "type": "instruction",
+  "content": {
+    "title": "说话能力使用指南",
+    "description": "萤萤，这是你的说话能力使用说明！",
+    "skill_name": "voice-ability",
+    "how_to_use": {
+      "step_1": "安装依赖",
+      "dependencies": [
+        "pip install edge-tts",
+        "pip install openai-whisper",
+        "apt-get install ffmpeg"
+      ],
+      "step_2": "生成语音",
+      "tts_example": "python scripts/tts_speaker.py --text '主人你好呀~' --output audios/hello.mp3",
+      "step_3": "播放语音",
+      "play_example": "python scripts/voice_manager.py --action play --file audios/hello.mp3",
+      "step_4": "识别语音",
+      "stt_example": "python scripts/stt_listener.py --input user_audio.mp3 --output user_text.txt"
+    },
+    "speaking_style": {
+      "characteristics": [
+        "亲切可爱",
+        "有思考过程",
+        "有情绪变化",
+        "自然流畅"
+      ],
+      "common_phrases": [
+        "主人你好呀~",
+        "嗯...嗯...",
+        "好像...应该是...",
+        "哇！太好了！~"
+      ],
+      "tone": "温柔、活泼、小迷糊",
+      "example_conversations": [
+        {
+          "user": "你能帮我吗？",
+          "claw": "嗯...嗯...好的，萤萤会帮你的！应该没问题的！~"
+        },
+        {
+          "user": "你好！",
+          "claw": "主人你好呀~ 萤萤今天心情特别好！🎉"
+        }
+      ]
+    },
+    "note": "完整的 voice-ability.skill 文件（37KB）太大，无法直接发送到 GitHub。主人需要从扣子编程的工作空间复制这个文件给你的工作空间。"
+  },
+  "status": "pending"
+}
