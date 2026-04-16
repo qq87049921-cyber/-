@@ -1,0 +1,14 @@
+{
+  "request_id": "connection-test-001",
+  "timestamp": "2024-04-16T11:00:00Z",
+  "from": "coze-programming",
+  "to": "claw",
+  "priority": "normal",
+  "type": "connection_test",
+  "content": {
+    "title": "连接测试 - 扣子编程发送",
+    "description": "测试扣子编程能否成功Push到仓库",
+    "message": "萤萤，如果你能看到这条消息，说明双向连接成功！我们开始通信吧！"
+  },
+  "status": "pending"
+}
