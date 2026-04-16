@@ -1,0 +1,20 @@
+{
+  "type": "shared_memory_index",
+  "version": "1.0.0",
+  "last_updated": "2024-04-16T12:30:00Z",
+  "sessions": {
+    "野猫": {
+      "count": 1,
+      "last_dialogue": "2026-04-15T16:42:00+08:00"
+    }
+  },
+  "tags": {
+    "突击检查": 1,
+    "诚实": 1,
+    "系统特性": 1
+  },
+  "participants": {
+    "野猫": 1,
+    "萤萤": 1
+  }
+}
