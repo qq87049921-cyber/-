@@ -24,12 +24,20 @@ from typing import List, Dict, Any, Optional
 import sys
 
 # 数据源配置
-BASE_DIR = Path(__file__).parent.parent
+# 指向 agent-bridge-github/ 目录（实际数据所在目录）
+BASE_DIR = Path(__file__).parent.parent.parent
+
 SOURCES = {
     'structured_memory': BASE_DIR / 'memory-store' / '萤萤记忆.json',
     'dialogues': BASE_DIR / 'shared_memory' / 'dialogues.json',
     'growth_log': BASE_DIR / 'shared_memory' / 'growth_log.json'
 }
+
+# 支持的文件类型
+TEXT_FILE_TYPES = ['.json', '.md', '.txt', '.py', '.html', '.css', '.js']
+IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg']
+
+ALL_FILE_TYPES = TEXT_FILE_TYPES + IMAGE_FILE_TYPES
 
 
 class UnifiedMemorySearch:
@@ -37,6 +45,34 @@ class UnifiedMemorySearch:
 
     def __init__(self):
         self.results = []
+
+        # 初始化结构化记忆文件（如果不存在）
+        self._init_structured_memory()
+
+    def _init_structured_memory(self):
+        """初始化结构化记忆文件"""
+        memory_file = SOURCES['structured_memory']
+
+        if not memory_file.exists():
+            try:
+                memory_file.parent.mkdir(parents=True, exist_ok=True)
+
+                # 创建空的结构化记忆
+                empty_memory = {
+                    'owner': {},
+                    'self': {},
+                    'status': {},
+                    'settings': {},
+                    'last_updated': datetime.now().isoformat()
+                }
+
+                with open(memory_file, 'w', encoding='utf-8') as f:
+                    json.dump(empty_memory, f, ensure_ascii=False, indent=2)
+
+                print(f"✅ 已创建结构化记忆文件: {memory_file}")
+
+            except Exception as e:
+                print(f"❌ 创建结构化记忆文件失败: {e}")
 
     def search(self, **kwargs):
         """执行搜索"""
@@ -121,6 +157,8 @@ class UnifiedMemorySearch:
         dialogue_file = SOURCES['dialogues']
 
         if not dialogue_file.exists():
+            print(f"⚠️ 对话记录文件不存在: {dialogue_file}")
+            print(f"💡 请确保记忆增强技能正常工作")
             return
 
         try:
@@ -210,52 +248,70 @@ class UnifiedMemorySearch:
 
     def search_files(self, keywords, days, fuzzy, regex):
         """搜索文件系统"""
+        # 排除不需要搜索的目录
+        exclude_dirs = {'.git', '__pycache__', '.DS_Store', 'node_modules', '.cache', 'tmp', 'temp'}
+
         for filepath in BASE_DIR.rglob("*"):
             if not filepath.is_file():
                 continue
 
-            # 只搜索文本文件
-            if filepath.suffix not in ['.json', '.md', '.txt', '.py']:
+            # 排除特定目录
+            if any(exclude_dir in filepath.parts for exclude_dir in exclude_dirs):
+                continue
+
+            # 检查文件类型
+            if filepath.suffix.lower() not in ALL_FILE_TYPES:
                 continue
 
             # 检查文件名
-            if keywords and any(kw in filepath.name.lower() for kw in keywords):
+            if keywords and any(kw.lower() in filepath.name.lower() for kw in keywords):
                 self.results.append({
                     'source': 'file',
                     'type': 'filename',
+                    'file_type': filepath.suffix,
                     'path': str(filepath.relative_to(BASE_DIR)),
                     'content': filepath.name,
                     'relevance': 0.6
                 })
 
-            # 检查文件内容
-            try:
-                with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
-                    content = f.read()
+            # 检查文件内容（仅文本文件）
+            if filepath.suffix.lower() in TEXT_FILE_TYPES:
+                try:
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        content = f.read()
 
-                if keywords:
-                    if fuzzy:
-                        if any(kw in content for kw in keywords):
-                            self.results.append({
-                                'source': 'file',
-                                'type': 'content',
-                                'path': str(filepath.relative_to(BASE_DIR)),
-                                'content': content[:200],
-                                'relevance': 0.5
-                            })
-                    elif regex:
-                        match = re.search(regex, content)
-                        if match:
-                            self.results.append({
-                                'source': 'file',
-                                'type': 'content',
-                                'path': str(filepath.relative_to(BASE_DIR)),
-                                'content': match.group()[:200],
-                                'relevance': 0.5
-                            })
+                    if keywords:
+                        if fuzzy:
+                            if any(kw in content for kw in keywords):
+                                self.results.append({
+                                    'source': 'file',
+                                    'type': 'content',
+                                    'path': str(filepath.relative_to(BASE_DIR)),
+                                    'content': content[:200],
+                                    'relevance': 0.5
+                                })
+                        elif regex:
+                            match = re.search(regex, content)
+                            if match:
+                                self.results.append({
+                                    'source': 'file',
+                                    'type': 'content',
+                                    'path': str(filepath.relative_to(BASE_DIR)),
+                                    'content': match.group()[:200],
+                                    'relevance': 0.5
+                                })
+                        else:
+                            if all(kw in content for kw in keywords):
+                                self.results.append({
+                                    'source': 'file',
+                                    'type': 'content',
+                                    'path': str(filepath.relative_to(BASE_DIR)),
+                                    'content': content[:200],
+                                    'relevance': 0.5
+                                })
 
-            except Exception:
-                continue
+                except Exception:
+                    continue
 
     def get_summary(self):
         """获取记忆摘要"""
@@ -277,6 +333,8 @@ class UnifiedMemorySearch:
                 {'id': k, 'session': v.get('session_name'), 'preview': v.get('content', '')[:100]}
                 for k, v in recent_dialogues
             ]
+        else:
+            summary['dialogues_note'] = "对话记录文件不存在，请确保记忆增强技能正常工作"
 
         return summary
 
@@ -308,15 +366,24 @@ class UnifiedMemorySearch:
     def check_time_range(self, timestamp, days):
         """检查是否在时间范围内"""
         try:
-            if isinstance(timestamp, str):
+            # 处理 dialogue_id 格式：20260416_0006
+            if isinstance(timestamp, str) and re.match(r'^\d{8}_\d{4}$', timestamp):
+                # 解析日期部分：20260416 → 2026-04-16
+                date_str = timestamp[:8]
+                parsed_date = datetime.strptime(date_str, '%Y%m%d')
+                timestamp = parsed_date
+
+            elif isinstance(timestamp, str):
                 timestamp = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+
             elif isinstance(timestamp, (int, float)):
                 timestamp = datetime.fromtimestamp(timestamp)
 
             cutoff = datetime.now() - timedelta(days=days)
             return timestamp >= cutoff
 
-        except Exception:
+        except Exception as e:
+            print(f"⚠️ 时间解析失败: {timestamp}, 错误: {e}")
             return True
 
 

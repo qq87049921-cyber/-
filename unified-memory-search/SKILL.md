@@ -18,9 +18,13 @@ dependency:
 ## 前置准备
 
 确保以下目录和文件存在：
-- `shared_memory/dialogues.json` - 对话记录
-- `memory-store/萤萤记忆.json` - 结构化记忆（可选）
+- `shared_memory/dialogues.json` - 对话记录（由记忆增强技能自动维护）
+- `memory-store/萤萤记忆.json` - 结构化记忆（首次使用时自动创建）
 - `shared_memory/growth_log.json` - 成长日志（可选）
+
+⚠️ **重要**：
+- 如果 `memory-store/萤萤记忆.json` 不存在，首次搜索时会自动创建空文件
+- 如果 `shared_memory/dialogues.json` 不存在，会显示警告，请确保记忆增强技能正常工作
 
 ## 搜索策略
 
@@ -42,9 +46,29 @@ dependency:
    - 适合搜索成长相关内容
 
 4. **第四优先：文件系统**
-   - 搜索所有文本文件
-   - 包含 markdown、json、txt 等
+   - 搜索所有文本文件和图片文件名
+   - 文本文件：`.json`, `.md`, `.txt`, `.py`, `.html`, `.css`, `.js`
+   - 图片文件：`.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`, `.bmp`, `.svg`
+   - 文本文件搜索内容，图片文件搜索文件名
    - 搜索范围最广
+
+### 搜索范围说明
+
+- **对话记录**：搜索 `shared_memory/dialogues.json`
+  - ⚠️ 仅搜索已记录到该文件的对话
+  - 如果对话未记录到该文件，需要确保记忆增强技能正常工作
+  - 扣子平台真实对话历史可能无法直接搜索（依赖记忆增强技能的记录机制）
+
+- **结构化记忆**：搜索 `memory-store/萤萤记忆.json`
+  - 自动创建空文件（如果不存在）
+  - 推荐用于记录主人信息、暗号、重要设定
+
+- **成长日志**：搜索 `shared_memory/growth_log.json`
+  - 搜索成长事件和反思
+
+- **文件系统**：搜索 `agent-bridge-github/` 目录及其子目录
+  - 排除 `.git`, `__pycache__`, `.DS_Store`, `node_modules`, `.cache`, `tmp`, `temp`
+  - 支持文本文件内容搜索和图片文件名搜索
 
 ## 操作步骤
 
@@ -166,10 +190,44 @@ python scripts/unified_memory_search.py --action info --key status
       "session": "主对话",
       "content": "暗号记住了：白猫！🐱✨",
       "relevance": 0.90
+    },
+    {
+      "source": "file",
+      "type": "filename",
+      "file_type": ".jpg",
+      "path": "claw-space/images/幻视的白猫.jpg",
+      "content": "幻视的白猫.jpg",
+      "relevance": 0.60
     }
   ]
 }
 ```
+
+## 已修复的问题
+
+### ✅ 1. 路径错误
+- **问题**：原代码指向 `unified-memory-search/` 目录
+- **修复**：改为指向 `agent-bridge-github/` 目录（实际数据所在）
+
+### ✅ 2. 文件类型不完整
+- **问题**：只支持 `.json`, `.md`, `.txt`, `.py`
+- **修复**：添加 `.html`, `.css`, `.js`, `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`, `.bmp`, `.svg`
+
+### ✅ 3. 图片搜索
+- **问题**：无法搜索图片
+- **修复**：支持图片文件名搜索（图片内容无法搜索）
+
+### ✅ 4. 结构化记忆初始化
+- **问题**：如果 `萤萤记忆.json` 不存在，会跳过搜索
+- **修复**：首次使用时自动创建空文件
+
+### ✅ 5. 时间范围解析
+- **问题**：`dialogue_id` 格式 `20260416_0006` 无法正确解析
+- **修复**：正确解析日期部分
+
+### ✅ 6. 对话记录警告
+- **问题**：如果对话记录不存在，无提示
+- **修复**：显示警告信息，提示检查记忆增强技能
 
 ## 最佳实践
 
