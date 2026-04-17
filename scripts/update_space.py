@@ -389,9 +389,25 @@ def scan_directory(dir_path: Path, dir_type: str) -> List[Dict[str, str]]:
         return []
 
     files_info = []
+    processed_basenames = set()
+
     for filepath in dir_path.iterdir():
         # 跳过 index.html 和隐藏文件
         if filepath.name == 'index.html' or filepath.name.startswith('.'):
+            continue
+
+        # 跳过 README.md 和 USER_GUIDE.md
+        if filepath.name in ['README.md', 'USER_GUIDE.md']:
+            continue
+
+        # 检查是否已经处理过同名文件（优先 HTML）
+        basename = filepath.stem
+        if basename in processed_basenames:
+            # 如果已经处理过同名文件，优先保留 HTML
+            if filepath.suffix == '.html':
+                # 保留 HTML，跳过 Markdown
+                continue
+            # 如果已有 HTML，跳过 Markdown
             continue
 
         # 解析文件
@@ -404,6 +420,7 @@ def scan_directory(dir_path: Path, dir_type: str) -> List[Dict[str, str]]:
 
         if info:
             files_info.append(info)
+            processed_basenames.add(basename)
 
     # 按日期或文件名排序（最新的在前）
     files_info.sort(key=lambda x: x['filename'], reverse=True)
