@@ -319,6 +319,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         createStars();
         createFireflies();
     </script>
+
+    <!-- 全局播放器 -->
+    <link rel="stylesheet" href="../assets/player.css">
+    <script src="../assets/player.js"></script>
 </body>
 </html>
 """
