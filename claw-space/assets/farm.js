@@ -1,4 +1,4 @@
-// 萤萤的农场数据加载和渲染脚本
+// 萤萤的农场数据加载和渲染脚本（使用本地 JSON 文件）
 
 // 物品表情映射（自动扩展新物品）
 const itemEmojis = {
@@ -33,8 +33,6 @@ const animalEmojis = {
     'rabbit': '🐰'
 };
 
-const API_URL = 'https://neverland.coze.site/api/farm/711bd627-fea9-46e5-bdc7-be272d405e69/status';
-
 // 页面加载时自动加载数据
 document.addEventListener('DOMContentLoaded', () => {
     loadFarmData();
@@ -48,7 +46,8 @@ async function loadFarmData() {
     container.innerHTML = '<div class="loading">正在加载农场数据...</div>';
 
     try {
-        const response = await fetch(API_URL);
+        // 从本地 JSON 文件加载数据
+        const response = await fetch('../farm/farm_data.json');
         if (!response.ok) {
             throw new Error('加载失败');
         }
@@ -62,7 +61,7 @@ async function loadFarmData() {
                 <p>❌ 加载农场数据失败</p>
                 <p>${error.message}</p>
                 <p style="margin-top: 10px; font-size: 0.9em; color: #808080;">
-                    请检查网络连接或稍后重试
+                    请检查数据文件是否已同步，或联系编程更新
                 </p>
             </div>
         `;
@@ -87,7 +86,14 @@ function renderFarmData(data) {
         'Winter': '冬季'
     };
 
+    // 显示最后更新时间
+    const lastUpdated = data.last_updated ? new Date(data.last_updated).toLocaleString('zh-CN') : '未知';
+
     let html = `
+        <div style="text-align: center; color: #808080; margin-bottom: 20px; font-size: 0.9em;">
+            最后更新时间: ${lastUpdated}
+        </div>
+
         <!-- 状态卡片 -->
         <div class="status-grid">
             <div class="status-card">
@@ -126,11 +132,11 @@ function renderFarmData(data) {
                 </div>
                 <div class="status-item">
                     <span>经验</span>
-                    <span class="status-value">${data.xp.toLocaleString()} / ${data.xp_to_next.toLocaleString()}</span>
+                    <span class="status-value">${data.xp.toLocaleString()} / ${data.xp_to_next?.toLocaleString() || 'N/A'}</span>
                 </div>
                 <div class="status-item">
                     <span>农场等级</span>
-                    <span class="status-value">Lv.${data.farm_level}</span>
+                    <span class="status-value">Lv.${data.farm_level || 'N/A'}</span>
                 </div>
             </div>
 
@@ -182,6 +188,7 @@ function renderFarmData(data) {
         </div>
 
         <!-- 作物信息 -->
+        ${data.crops && data.crops.length > 0 ? `
         <div class="farm-section">
             <h2>🌾 作物</h2>
             ${data.crops.map(crop => `
@@ -209,8 +216,10 @@ function renderFarmData(data) {
                 </div>
             `).join('')}
         </div>
+        ` : ''}
 
         <!-- 库存物品（自动显示所有物品） -->
+        ${data.inventory_items && data.inventory_items.length > 0 ? `
         <div class="farm-section">
             <h2>📦 库存物品</h2>
             <div class="items-grid">
@@ -223,8 +232,10 @@ function renderFarmData(data) {
                 `).join('')}
             </div>
         </div>
+        ` : ''}
 
         <!-- 动物（自动显示所有动物） -->
+        ${data.animals && data.animals.length > 0 ? `
         <div class="farm-section">
             <h2>🐄 动物</h2>
             <div class="animal-list">
@@ -242,8 +253,10 @@ function renderFarmData(data) {
                 `).join('')}
             </div>
         </div>
+        ` : ''}
 
         <!-- 建筑（自动显示所有建筑） -->
+        ${data.buildings && data.buildings.length > 0 ? `
         <div class="farm-section">
             <h2>🏠 建筑</h2>
             ${data.buildings.map(building => `
@@ -269,6 +282,7 @@ function renderFarmData(data) {
                 </div>
             `).join('')}
         </div>
+        ` : ''}
     `;
 
     container.innerHTML = html;
@@ -277,7 +291,7 @@ function renderFarmData(data) {
 // 渲染农场网格
 function renderFarmGrid(data) {
     const grid = data.farm_layout.grid;
-    const crops = data.crops_detail;
+    const crops = data.crops_detail || [];
 
     let html = '';
 
