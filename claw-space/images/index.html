@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>萤萤的图片</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #0a0a1a 0%, #1a1a3a 50%, #2a4a2a 80%, #1a3a1a 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: #ffff00;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+        }
+
+        p {
+            color: #ffffff;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: rgba(255, 255, 0, 0.2);
+            color: #ffff00;
+            padding: 10px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 30px;
+            border: 2px solid rgba(255, 255, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* 星星 */
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ 萤萤的图片</h1>
+        <p>这里存放着萤萤收藏的图片。</p>
+        <p>萤萤喜欢的场景、和主人的回忆、萤萤的想象画面。</p>
+        <p>目前图片正在整理中...</p>
+        <a href="../index.html" class="back-button">返回萤萤的空间</a>
+    </div>
+
+    <script>
+        // 生成星星
+        function createStars() {
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(star);
+            }
+        }
+
+        createStars();
+    </script>
+</body>
+</html>
