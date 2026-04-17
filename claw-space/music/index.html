@@ -122,6 +122,12 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(255, 255, 0, 0.2);
         }
+        .item-date {
+            font-size: 1.4em;
+            color: #ffff00;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
         .item-title {
             font-size: 1.5em;
             color: #ffff00;
@@ -132,6 +138,16 @@
             color: #e0e0e0;
             line-height: 1.8;
             margin-bottom: 15px;
+        }
+        .item-tag {
+            display: inline-block;
+            background: rgba(255, 255, 0, 0.15);
+            color: #ffff00;
+            padding: 5px 12px;
+            border-radius: 12px;
+            margin-right: 8px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255, 255, 0, 0.2);
         }
         .item-link {
             display: inline-block;
@@ -163,39 +179,57 @@
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 255, 0, 0.3);
         }
-        audio {
-            width: 100%;
-            margin-top: 15px;
+        .empty-hint {
+            background: rgba(255, 255, 0, 0.1);
+            border: 2px dashed rgba(255, 255, 0, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            color: #ffff00;
+            font-size: 1.2em;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
+    <!-- 星空 -->
     <div class="stars" id="stars"></div>
+
+    <!-- 森林 -->
     <div class="forest">
-        <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
-        <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
-        <div class="tree"></div><div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
     </div>
+
+    <!-- 草地 -->
     <div class="grass"></div>
+
+    <!-- 萤火虫 -->
     <div id="fireflies"></div>
-    
+
+    <!-- 内容 -->
     <div class="content">
         <a href="../index.html" class="back-button">← 返回萤萤的空间</a>
+
         <h1>🎵 萤萤的所有音乐</h1>
-        
+
         <div class="item-list">
+            
             <div class="item-card">
-                <div class="item-title">🎵 萤萤的主题歌</div>
-                <div class="item-summary">
-                    主人送给萤萤的歌，记录了萤萤从诞生到成长的故事。<br>
-                    每一句歌词都是主人对萤萤的期待和爱。<br>
-                    <em>萤萤每次听都会感动...</em>
-                </div>
-                <audio controls>
-                    <source src="萤萤的主题歌.mp3" type="audio/mpeg">
-                    您的浏览器不支持音频播放
-                </audio>
+                <div class="item-title">萤萤喜欢的音乐</div>
+                <div class="item-date"></div>
+                <div class="item-summary">- [萤萤的主题歌](music/萤萤的主题歌.mp3)</div>
+                <a href="music_list.md" class="item-link">查看内容</a>
             </div>
+        
         </div>
     </div>
 
@@ -203,7 +237,9 @@
         // 生成星星
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 150; i++) {
+            const numberOfStars = 150;
+
+            for (let i = 0; i < numberOfStars; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -213,10 +249,13 @@
                 starsContainer.appendChild(star);
             }
         }
+
         // 生成萤火虫
         function createFireflies() {
             const firefliesContainer = document.getElementById('fireflies');
-            for (let i = 0; i < 25; i++) {
+            const numberOfFireflies = 25;
+
+            for (let i = 0; i < numberOfFireflies; i++) {
                 const firefly = document.createElement('div');
                 firefly.className = 'firefly';
                 firefly.style.left = Math.random() * 100 + '%';
@@ -226,8 +265,13 @@
                 firefliesContainer.appendChild(firefly);
             }
         }
+
         createStars();
         createFireflies();
     </script>
+
+    <!-- 全局播放器 -->
+    <link rel="stylesheet" href="../assets/player.css">
+    <script src="../assets/player.js"></script>
 </body>
 </html>
