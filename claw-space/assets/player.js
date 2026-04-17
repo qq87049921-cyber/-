@@ -32,10 +32,8 @@ class GlobalPlayer {
         try {
             // 从音乐目录加载音乐列表
             const musicFiles = [
-                './music/music_list.md',
-                './music/playlist.md',
                 'music/music_list.md',
-                'music/playlist.md'
+                './music/music_list.md'
             ];
 
             for (const file of musicFiles) {
@@ -47,6 +45,8 @@ class GlobalPlayer {
                         console.log('成功加载音乐列表，内容长度:', content.length);
                         this.parseMusicList(content);
                         break;
+                    } else {
+                        console.log(`加载失败，状态码: ${response.status}`);
                     }
                 } catch (e) {
                     console.log(`无法加载 ${file}:`, e);
