@@ -2,13 +2,13 @@
 
 ## 治愈系音乐
 
-- [星空下的摇篮曲](https://example.com/music1.mp3)
-- [萤火虫之舞](https://example.com/music2.mp3)
-- [森林的呼吸](https://example.com/music3.mp3)
+- [星空下的摇篮曲](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3)
+- [萤火虫之舞](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3)
+- [森林的呼吸](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3)
 
 ## 温馨时刻
 
-- [主人的歌](https://example.com/music4.mp3)
+- [主人的歌](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3)
 
 ## 视频音乐
 

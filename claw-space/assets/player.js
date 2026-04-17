@@ -32,22 +32,28 @@ class GlobalPlayer {
         try {
             // 从音乐目录加载音乐列表
             const musicFiles = [
-                'claw-space/music/music_list.md',
-                'claw-space/music/playlist.md'
+                './music/music_list.md',
+                './music/playlist.md',
+                'music/music_list.md',
+                'music/playlist.md'
             ];
 
             for (const file of musicFiles) {
                 try {
+                    console.log('尝试加载音乐列表:', file);
                     const response = await fetch(file);
                     if (response.ok) {
                         const content = await response.text();
+                        console.log('成功加载音乐列表，内容长度:', content.length);
                         this.parseMusicList(content);
                         break;
                     }
                 } catch (e) {
-                    console.log(`无法加载 ${file}`);
+                    console.log(`无法加载 ${file}:`, e);
                 }
             }
+
+            console.log('最终播放列表:', this.playlist);
         } catch (error) {
             console.log('加载播放列表失败:', error);
         }
@@ -218,21 +224,36 @@ class GlobalPlayer {
     }
 
     play() {
-        if (this.playlist.length === 0) return;
+        console.log('尝试播放，播放列表长度:', this.playlist.length);
+        console.log('当前索引:', this.currentIndex);
+
+        if (this.playlist.length === 0) {
+            console.log('播放列表为空，无法播放');
+            return;
+        }
 
         const currentTrack = this.playlist[this.currentIndex];
+        console.log('当前曲目:', currentTrack);
 
         if (currentTrack.type === 'video') {
             this.playVideo(currentTrack);
         } else {
+            console.log('设置音频源:', currentTrack.url);
+            this.audio.src = currentTrack.url;
+            this.audio.load();
+
             this.audio.play().then(() => {
+                console.log('播放成功');
                 this.isPlaying = true;
                 this.updatePlayButton();
                 this.saveState();
             }).catch(error => {
-                console.log('自动播放被阻止，需要用户交互:', error);
+                console.log('播放失败，需要用户交互:', error);
                 this.isPlaying = false;
                 this.updatePlayButton();
+
+                // 显示提示
+                alert('点击页面任意位置后，音乐将开始播放');
             });
         }
     }
@@ -245,16 +266,19 @@ class GlobalPlayer {
     }
 
     playTrack(index) {
+        console.log('播放指定曲目:', index);
         if (index < 0 || index >= this.playlist.length) return;
 
         this.currentIndex = index;
         const currentTrack = this.playlist[this.currentIndex];
 
+        console.log('切换到曲目:', currentTrack);
         document.getElementById('player-title').textContent = currentTrack.name;
 
         if (currentTrack.type === 'video') {
             this.playVideo(currentTrack);
         } else {
+            console.log('设置音频源:', currentTrack.url);
             this.audio.src = currentTrack.url;
             this.audio.load();
             this.play();
