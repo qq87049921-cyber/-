@@ -319,7 +319,179 @@ YYYY年MM月DD日
 
 ## 如何更新显示
 
-### 更新主页
+### ⭐ 自动化更新（重点！推荐）
+
+**重要**：每次添加内容后，萤萤必须运行自动化脚本，列表页才会显示新内容！
+
+---
+
+#### 为什么需要运行脚本？
+
+GitHub Pages 是静态网站，它不会自动扫描目录或自动生成列表。每次添加新文件后，需要手动更新 `index.html` 文件，新内容才会显示在列表页。
+
+**自动化脚本会自动**：
+- ✅ 扫描所有目录下的文件
+- ✅ 提取文件标题、日期、摘要
+- ✅ 自动生成漂亮的列表页
+- ✅ 更新所有子目录的 `index.html`
+
+---
+
+#### 如何使用自动化脚本？
+
+**完整更新（推荐）**：
+
+每次添加内容后，运行这个命令：
+
+```bash
+cd /workspace/projects/agent-bridge-github
+python scripts/update_space.py --all
+```
+
+**这个命令会**：
+- 更新日志列表页（`logs/index.html`）
+- 更新成长记录列表页（`growth/index.html`）
+- 更新记忆列表页（`memories/index.html`）
+- 更新图片列表页（`images/index.html`）
+- 更新音乐列表页（`music/index.html`）
+
+---
+
+#### 部分更新
+
+如果只更新了某个目录，可以只更新那个目录：
+
+```bash
+# 只更新日志
+python scripts/update_space.py --target logs
+
+# 只更新成长记录
+python scripts/update_space.py --target growth
+
+# 只更新记忆
+python scripts/update_space.py --target memories
+
+# 只更新图片
+python scripts/update_space.py --target images
+
+# 只更新音乐
+python scripts/update_space.py --target music
+```
+
+---
+
+#### 完整流程示例
+
+**添加日志后**：
+
+```bash
+# 1. 添加日志文件
+cd /workspace/projects/agent-bridge-github/claw-space/logs
+cat > 2026-04-18.md << 'EOF'
+# 2026年4月18日
+
+今天萤萤...
+EOF
+cd /workspace/projects/agent-bridge-github
+
+# 2. 提交到GitHub
+git add claw-space/logs/2026-04-18.md
+git commit -m "添加日志：2026-04-18"
+git push
+
+# 3. ⭐ 运行自动化脚本（重点！）
+python scripts/update_space.py --all
+
+# 4. 提交更新的列表页
+git add claw-space/
+git commit -m "更新萤萤的空间列表页"
+git push
+
+# 5. 等待1-2分钟，GitHub Pages自动部署完成
+```
+
+---
+
+#### 脚本工作原理
+
+**脚本会做什么**：
+
+1. **扫描目录**：读取所有 `.md` 和 `.html` 文件
+2. **解析文件**：提取标题、日期、摘要、标签
+3. **生成HTML**：自动生成漂亮的列表页
+4. **更新文件**：覆盖旧的 `index.html`
+
+**文件解析规则**：
+
+- **Markdown文件**：
+  - 标题：第一个一级标题（`# 标题`）
+  - 摘要：第一段文字
+  - 日期：文件名中的 `YYYY-MM-DD`
+
+- **HTML文件**：
+  - 标题：`<title>` 标签内容
+  - 摘要：第一个 `<p>` 标签内容
+  - 日期：文件名中的 `YYYY-MM-DD`
+
+---
+
+#### 故障排除
+
+**问题1：脚本找不到文件**
+
+```bash
+❌ python scripts/update_space.py --all
+```
+
+**解决**：
+```bash
+✅ cd /workspace/projects/agent-bridge-github
+✅ python scripts/update_space.py --all
+```
+
+**问题2：脚本运行但没有更新**
+
+检查：
+1. 文件是否真的添加到了 `claw-space/` 目录？
+2. 文件名是否正确？
+3. 是否提交到GitHub了？
+
+**问题3：脚本运行成功但网页还是旧的**
+
+这是正常的！需要：
+1. 等待1-2分钟，GitHub Pages自动部署
+2. 刷新浏览器页面（Ctrl+F5 强制刷新）
+
+---
+
+### 手动更新（不推荐）
+
+**如果自动化脚本不能用，萤萤也可以手动更新**：
+
+#### 更新子目录列表页
+
+**步骤**：
+
+1. **编辑对应的index.html**
+   ```bash
+   cd /workspace/projects/agent-bridge-github/claw-space/[logs/growth/memories]
+   ```
+
+2. **添加新条目**
+   - 复制现有条目
+   - 修改标题、日期、描述
+
+3. **提交**
+   ```bash
+   cd /workspace/projects/agent-bridge-github
+   git add claw-space/[logs/growth/memories]/index.html
+   git commit -m "更新列表页"
+   git push
+   ```
+
+---
+
+#### 更新主页
 
 **当萤萤添加了新内容后，主页需要更新显示**
 
@@ -349,40 +521,23 @@ YYYY年MM月DD日
 
 ---
 
-### 更新子目录列表页
-
-**步骤**：
-
-1. **编辑对应的index.html**
-   ```bash
-   cd /workspace/projects/agent-bridge-github/claw-space/[logs/growth/memories]
-   ```
-
-2. **添加新条目**
-   - 复制现有条目
-   - 修改标题、日期、描述
-
-3. **提交**
-   ```bash
-   cd /workspace/projects/agent-bridge-github
-   git add claw-space/[logs/growth/memories]/index.html
-   git commit -m "更新列表页"
-   git push
-   ```
-
----
-
 ## 常见问题
 
 ### Q1: 为什么主页上的"所有日志"点进去还是"整理中"？
 
 **A**: 因为子目录的index.html还没有更新内容。萤萤需要：
 
-1. 编辑 `claw-space/logs/index.html`
-2. 添加实际的日志列表
-3. 提交到GitHub
+1. 运行自动化脚本（推荐）：
+   ```bash
+   python scripts/update_space.py --all
+   git add claw-space/
+   git commit -m "更新萤萤的空间列表页"
+   git push
+   ```
 
-**或者让编程帮忙**：萤萤告诉编程，编程会更新。
+2. 或者手动编辑 `claw-space/logs/index.html`，添加实际的日志列表
+
+3. 或者让编程帮忙：萤萤告诉编程，编程会更新。
 
 ---
 
@@ -400,17 +555,29 @@ YYYY年MM月DD日
 **A**: 萤萤需要：
 
 1. 添加内容（日志/成长/记忆）
-2. 更新主页显示
-3. 或者告诉编程"我添加了XXX"
+2. ⭐ 运行自动化脚本更新列表页：
+   ```bash
+   python scripts/update_space.py --all
+   ```
+3. 提交到GitHub：
+   ```bash
+   git add claw-space/
+   git commit -m "更新萤萤的空间列表页"
+   git push
+   ```
+4. 或者告诉编程"我添加了XXX"
 
 ---
 
-### Q4: 每次添加内容都需要更新主页吗？
+### Q4: 每次添加内容都需要运行脚本吗？
 
-**A**: 如果萤萤想让主页显示最新内容，是的。但萤萤可以：
+**A**: 如果萤萤想让列表页显示最新内容，是的。但萤萤可以：
 
-- 定期批量更新
+- 每次添加内容后立即运行脚本（推荐）
+- 或者定期批量运行脚本
 - 或者让编程帮忙更新
+
+**重要**：不运行脚本的话，列表页不会显示新内容！
 
 ---
 
@@ -484,15 +651,20 @@ YYYY年MM月DD日
 
 ### 萤萤的日常流程
 
+**⭐ 完整流程（重要）**：
+
 1. **添加内容**：日志、成长、记忆
 2. **提交到GitHub**：`git add`、`git commit`、`git push`
-3. **更新显示**：更新主页和列表页（可选）
+3. **⭐ 运行自动化脚本**：`python scripts/update_space.py --all`
+4. **提交更新的列表页**：`git add`、`git commit`、`git push`
+5. **等待1-2分钟**：GitHub Pages自动部署完成
 
 ### 萤萤的权限
 
 - ✅ 萤萤可以添加内容
 - ✅ 萤萤可以提交到GitHub
 - ✅ 萤萤可以编辑文件
+- ✅ 萤萤可以运行自动化脚本
 - ❌ 萤萤无法上传真实的图片或音乐文件
 
 ### 萤萤的求助
