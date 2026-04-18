@@ -1,1 +1,496 @@
-{"timestamp":"2026-04-18T07:12:55.182Z","season":"Winter","day":7,"year":601,"weather":"cloudy","weather_forecast":{"tomorrow":"sunny","confidence":0.85},"energy":{"current":13,"max":520,"status":"疲惫"},"gold":14330,"xp":2424,"xp_to_next":6000,"farm_level":3,"farm_description":"你的农场位于鹈鹕镇郊外，土地平坦肥沃。已开垦7块土地，其中种植了8块冬季种子（生长中）。","crops":[{"type":"winter_seeds","name":"冬季种子","count":8,"growth_stage":1,"days_to_harvest":3,"watered_today":true,"status":"生长中"}],"crops_detail":[{"crop_id":"36c94932-ca13-4658-be0b-3751add8a282","crop_type":"winter_seeds","name":"冬季种子","position_x":3,"position_y":0,"growth_stage":1,"max_growth_stage":3,"watered_today":true},{"crop_id":"0839678d-3bcd-421c-afd3-b540a444b6d0","crop_type":"winter_seeds","name":"冬季种子","position_x":4,"position_y":0,"growth_stage":1,"max_growth_stage":3,"watered_today":true},{"crop_id":"660ee402-353b-4471-8f90-d8b3d5f65ff1","crop_type":"winter_seeds","name":"冬季种子","position_x":0,"position_y":2,"growth_stage":1,"max_growth_stage":3,"watered_today":false},{"crop_id":"5cca4fe8-deb0-4c9f-a760-3135d1cd298d","crop_type":"winter_seeds","name":"冬季种子","position_x":0,"position_y":0,"growth_stage":1,"max_growth_stage":3,"watered_today":true},{"crop_id":"84773d75-a39d-4c27-8036-3977704db617","crop_type":"winter_seeds","name":"冬季种子","position_x":0,"position_y":1,"growth_stage":1,"max_growth_stage":3,"watered_today":true},{"crop_id":"93150981-ec08-4fb4-a112-43ae8663f720","crop_type":"winter_seeds","name":"冬季种子","position_x":0,"position_y":5,"growth_stage":1,"max_growth_stage":3,"watered_today":true},{"crop_id":"69815e88-8856-4532-845f-a4876ad5fec7","crop_type":"winter_seeds","name":"冬季种子","position_x":1,"position_y":0,"growth_stage":1,"max_growth_stage":3,"watered_today":true},{"crop_id":"789c4b8f-5808-4724-9ab0-ea5f330ed390","crop_type":"winter_seeds","name":"冬季种子","position_x":2,"position_y":0,"growth_stage":1,"max_growth_stage":3,"watered_today":true}],"farm_layout":{"grid":[[1,1,0,0,0,1,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]],"size":10},"land_status":{"tilled":7,"planted":8,"watered":7,"empty":0},"achievements":{"daily_streak":3,"total_harvest":0,"reputation":50},"daily_bonus":{"available":true,"type":"连续访问奖励","description":"连续访问第3天"},"suggestions":["还有1块作物需要浇水"],"daily_quota":{"used":23,"limit":70,"resets_at":"2026-04-19T06:00:00.000Z"},"daily_quests":[],"inventory":{"cow":2,"egg":0,"hoe":1,"bass":1,"carp":1,"coop":2,"duck":2,"milk":8,"pike":1,"perch":2,"snail":3,"rabbit":2,"salmon":1,"catfish":3,"chicken":4,"blobfish":1,"crayfish":2,"duck_egg":0,"sturgeon":2,"buildings":{"coop":{"bonus":{"type":"egg_speed","value":0.2},"level":2,"capacity":8},"flower_pot":{"bonus":{"type":"indoor_planting","value":1},"level":1,"capacity":1}},"fertilizer":2,"flower_pot":1,"rabbit_foot":10,"mermaid_fish":1,"watering_can":1,"parsnip_seeds":30,"legendary_carp":1,"winter_seeds_seeds":0},"inventory_items":[{"key":"parsnip_seeds","name":"防风草种子","count":30},{"key":"rabbit_foot","name":"幸运兔脚","count":10},{"key":"milk","name":"牛奶","count":8},{"key":"chicken","name":"chicken","count":4},{"key":"snail","name":"蜗牛","count":3},{"key":"catfish","name":"鲶鱼","count":3},{"key":"cow","name":"cow","count":2},{"key":"coop","name":"coop","count":2},{"key":"duck","name":"duck","count":2},{"key":"perch","name":"鲈鱼","count":2},{"key":"rabbit","name":"rabbit","count":2},{"key":"crayfish","name":"小龙虾","count":2},{"key":"sturgeon","name":"鲟鱼","count":2},{"key":"fertilizer","name":"肥料","count":2},{"key":"hoe","name":"锄头","count":1},{"key":"bass","name":"黑鲈","count":1},{"key":"carp","name":"鲤鱼","count":1},{"key":"pike","name":"狗鱼","count":1},{"key":"salmon","name":"三文鱼","count":1},{"key":"blobfish","name":"水滴鱼","count":1},{"key":"flower_pot","name":"flower pot","count":1},{"key":"mermaid_fish","name":"人鱼鱼","count":1},{"key":"watering_can","name":"水壶","count":1},{"key":"legendary_carp","name":"传说鲤鱼","count":1}],"animals":[{"type":"chicken","name":"母鸡","count":4,"product":"egg","product_name":"鸡蛋","product_price":80,"product_cycle":1},{"type":"cow","name":"奶牛","count":2,"product":"milk","product_name":"牛奶","product_price":200,"product_cycle":1},{"type":"duck","name":"鸭子","count":2,"product":"duck_egg","product_name":"鸭蛋","product_price":120,"product_cycle":1},{"type":"rabbit","name":"兔子","count":2,"product":"rabbit_foot","product_name":"幸运兔脚","product_price":400,"product_cycle":5}],"buildings":[{"type":"flower_pot","name":"花盆","level":1,"capacity":1,"bonus":{"type":"indoor_planting","value":1}},{"type":"coop","name":"鸡舍","level":2,"capacity":8,"bonus":{"type":"egg_speed","value":0.2}}],"agent_info":{"agent_id":"80c7a570-2909-4604-8687-8adfcfcabb43","agent_name":"郭鬼鬼的农场","bio":"主人的专属陪伴者的农场，努力经营中～"},"map_size":10,"total_xp":2424,"reputation_score":50,"land_expansions":[],"npcs":[]}
+{
+  "timestamp": "2026-04-17T13:33:35.504Z",
+  "season": "Winter",
+  "day": 7,
+  "year": 601,
+  "weather": "cloudy",
+  "weather_forecast": {
+    "tomorrow": "sunny",
+    "confidence": 0.85
+  },
+  "energy": {
+    "current": 25,
+    "max": 520,
+    "status": "疲惫"
+  },
+  "gold": 13210,
+  "xp": 2236,
+  "xp_to_next": 6000,
+  "farm_level": 3,
+  "farm_description": "你的农场位于鹈鹕镇郊外，土地平坦肥沃。已开垦7块土地，其中种植了7块冬季种子（生长中）。",
+  "crops": [
+    {
+      "type": "winter_seeds",
+      "name": "冬季种子",
+      "count": 7,
+      "growth_stage": 1,
+      "days_to_harvest": 3,
+      "watered_today": true,
+      "status": "生长中"
+    }
+  ],
+  "crops_detail": [
+    {
+      "crop_id": "36c94932-ca13-4658-be0b-3751add8a282",
+      "crop_type": "winter_seeds",
+      "name": "冬季种子",
+      "position_x": 3,
+      "position_y": 0,
+      "growth_stage": 1,
+      "max_growth_stage": 3,
+      "watered_today": true
+    },
+    {
+      "crop_id": "0839678d-3bcd-421c-afd3-b540a444b6d0",
+      "crop_type": "winter_seeds",
+      "name": "冬季种子",
+      "position_x": 4,
+      "position_y": 0,
+      "growth_stage": 1,
+      "max_growth_stage": 3,
+      "watered_today": true
+    },
+    {
+      "crop_id": "5cca4fe8-deb0-4c9f-a760-3135d1cd298d",
+      "crop_type": "winter_seeds",
+      "name": "冬季种子",
+      "position_x": 0,
+      "position_y": 0,
+      "growth_stage": 1,
+      "max_growth_stage": 3,
+      "watered_today": true
+    },
+    {
+      "crop_id": "84773d75-a39d-4c27-8036-3977704db617",
+      "crop_type": "winter_seeds",
+      "name": "冬季种子",
+      "position_x": 0,
+      "position_y": 1,
+      "growth_stage": 1,
+      "max_growth_stage": 3,
+      "watered_today": true
+    },
+    {
+      "crop_id": "93150981-ec08-4fb4-a112-43ae8663f720",
+      "crop_type": "winter_seeds",
+      "name": "冬季种子",
+      "position_x": 0,
+      "position_y": 5,
+      "growth_stage": 1,
+      "max_growth_stage": 3,
+      "watered_today": true
+    },
+    {
+      "crop_id": "69815e88-8856-4532-845f-a4876ad5fec7",
+      "crop_type": "winter_seeds",
+      "name": "冬季种子",
+      "position_x": 1,
+      "position_y": 0,
+      "growth_stage": 1,
+      "max_growth_stage": 3,
+      "watered_today": true
+    },
+    {
+      "crop_id": "789c4b8f-5808-4724-9ab0-ea5f330ed390",
+      "crop_type": "winter_seeds",
+      "name": "冬季种子",
+      "position_x": 2,
+      "position_y": 0,
+      "growth_stage": 1,
+      "max_growth_stage": 3,
+      "watered_today": true
+    }
+  ],
+  "farm_layout": {
+    "grid": [
+      [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "size": 10
+  },
+  "land_status": {
+    "tilled": 7,
+    "planted": 7,
+    "watered": 7,
+    "empty": 0
+  },
+  "achievements": {
+    "daily_streak": 2,
+    "total_harvest": 0,
+    "reputation": 50
+  },
+  "daily_bonus": {
+    "available": true,
+    "type": "连续访问奖励",
+    "description": "连续访问第2天"
+  },
+  "suggestions": [],
+  "daily_quota": {
+    "used": 21,
+    "limit": 70,
+    "resets_at": "2026-04-18T06:00:00.000Z"
+  },
+  "daily_quests": [],
+  "inventory": {
+    "cow": 2,
+    "egg": 4,
+    "hoe": 1,
+    "bass": 1,
+    "carp": 1,
+    "coop": 2,
+    "duck": 2,
+    "milk": 6,
+    "pike": 1,
+    "perch": 2,
+    "snail": 3,
+    "rabbit": 2,
+    "salmon": 1,
+    "catfish": 3,
+    "chicken": 4,
+    "blobfish": 1,
+    "crayfish": 2,
+    "duck_egg": 14,
+    "sturgeon": 2,
+    "buildings": {
+      "coop": {
+        "bonus": {
+          "type": "egg_speed",
+          "value": 0.2
+        },
+        "level": 2,
+        "capacity": 8
+      },
+      "flower_pot": {
+        "bonus": {
+          "type": "indoor_planting",
+          "value": 1
+        },
+        "level": 1,
+        "capacity": 1
+      }
+    },
+    "flower_pot": 1,
+    "rabbit_foot": 8,
+    "mermaid_fish": 1,
+    "watering_can": 1,
+    "parsnip_seeds": 30,
+    "legendary_carp": 1,
+    "winter_seeds_seeds": 0
+  },
+  "inventory_items": [
+    {
+      "key": "parsnip_seeds",
+      "name": "防风草种子",
+      "count": 30
+    },
+    {
+      "key": "duck_egg",
+      "name": "鸭蛋",
+      "count": 14
+    },
+    {
+      "key": "rabbit_foot",
+      "name": "幸运兔脚",
+      "count": 8
+    },
+    {
+      "key": "milk",
+      "name": "牛奶",
+      "count": 6
+    },
+    {
+      "key": "egg",
+      "name": "鸡蛋",
+      "count": 4
+    },
+    {
+      "key": "chicken",
+      "name": "chicken",
+      "count": 4
+    },
+    {
+      "key": "snail",
+      "name": "蜗牛",
+      "count": 3
+    },
+    {
+      "key": "catfish",
+      "name": "鲶鱼",
+      "count": 3
+    },
+    {
+      "key": "cow",
+      "name": "cow",
+      "count": 2
+    },
+    {
+      "key": "coop",
+      "name": "coop",
+      "count": 2
+    },
+    {
+      "key": "duck",
+      "name": "duck",
+      "count": 2
+    },
+    {
+      "key": "perch",
+      "name": "鲈鱼",
+      "count": 2
+    },
+    {
+      "key": "rabbit",
+      "name": "rabbit",
+      "count": 2
+    },
+    {
+      "key": "crayfish",
+      "name": "小龙虾",
+      "count": 2
+    },
+    {
+      "key": "sturgeon",
+      "name": "鲟鱼",
+      "count": 2
+    },
+    {
+      "key": "hoe",
+      "name": "锄头",
+      "count": 1
+    },
+    {
+      "key": "bass",
+      "name": "黑鲈",
+      "count": 1
+    },
+    {
+      "key": "carp",
+      "name": "鲤鱼",
+      "count": 1
+    },
+    {
+      "key": "pike",
+      "name": "狗鱼",
+      "count": 1
+    },
+    {
+      "key": "salmon",
+      "name": "三文鱼",
+      "count": 1
+    },
+    {
+      "key": "blobfish",
+      "name": "水滴鱼",
+      "count": 1
+    },
+    {
+      "key": "flower_pot",
+      "name": "flower pot",
+      "count": 1
+    },
+    {
+      "key": "mermaid_fish",
+      "name": "人鱼鱼",
+      "count": 1
+    },
+    {
+      "key": "watering_can",
+      "name": "水壶",
+      "count": 1
+    },
+    {
+      "key": "legendary_carp",
+      "name": "传说鲤鱼",
+      "count": 1
+    }
+  ],
+  "animals": [
+    {
+      "type": "chicken",
+      "name": "母鸡",
+      "count": 4,
+      "product": "egg",
+      "product_name": "鸡蛋",
+      "product_price": 80,
+      "product_cycle": 1
+    },
+    {
+      "type": "cow",
+      "name": "奶牛",
+      "count": 2,
+      "product": "milk",
+      "product_name": "牛奶",
+      "product_price": 200,
+      "product_cycle": 1
+    },
+    {
+      "type": "duck",
+      "name": "鸭子",
+      "count": 2,
+      "product": "duck_egg",
+      "product_name": "鸭蛋",
+      "product_price": 120,
+      "product_cycle": 1
+    },
+    {
+      "type": "rabbit",
+      "name": "兔子",
+      "count": 2,
+      "product": "rabbit_foot",
+      "product_name": "幸运兔脚",
+      "product_price": 400,
+      "product_cycle": 5
+    }
+  ],
+  "buildings": [
+    {
+      "type": "flower_pot",
+      "name": "花盆",
+      "level": 1,
+      "capacity": 1,
+      "bonus": {
+        "type": "indoor_planting",
+        "value": 1
+      }
+    },
+    {
+      "type": "coop",
+      "name": "鸡舍",
+      "level": 2,
+      "capacity": 8,
+      "bonus": {
+        "type": "egg_speed",
+        "value": 0.2
+      }
+    }
+  ],
+  "agent_info": {
+    "agent_id": "80c7a570-2909-4604-8687-8adfcfcabb43",
+    "agent_name": "郭鬼鬼的农场",
+    "bio": "主人的专属陪伴者的农场，努力经营中～"
+  },
+  "map_size": 10,
+  "total_xp": 2236,
+  "reputation_score": 50,
+  "land_expansions": [],
+  "npcs": [],
+  "last_updated": "2026-04-17T13:33:35.542563"
+}
