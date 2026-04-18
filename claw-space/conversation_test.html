@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对话历史记录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header .meta {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .search-box {
+            margin-top: 15px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .conversation {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message.user {
+            background: #f8f9fa;
+        }
+
+        .message.assistant {
+            background: white;
+        }
+
+        .message.system {
+            background: #fff3cd;
+        }
+
+        .avatar {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+        }
+
+        .avatar.user {
+            background: #4CAF50;
+        }
+
+        .avatar.assistant {
+            background: #2196F3;
+        }
+
+        .avatar.system {
+            background: #ff9800;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .role-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .role-name.user {
+            color: #4CAF50;
+        }
+
+        .role-name.assistant {
+            color: #2196F3;
+        }
+
+        .role-name.system {
+            color: #ff9800;
+        }
+
+        .timestamp {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .message-text {
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .message-text.hidden {
+            display: none;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+
+        .stats {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .message {
+                padding: 12px 16px;
+            }
+
+            .avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+
+            .message-text {
+                font-size: 13px;
+            }
+
+            .stats {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>对话历史记录</h1>
+            <div class="meta" id="meta"></div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索对话内容...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="user">用户</button>
+                <button class="filter-btn" data-filter="assistant">助手</button>
+                <button class="filter-btn" data-filter="system">系统</button>
+            </div>
+        </div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="conversation" id="conversation"></div>
+    </div>
+
+    <script>
+        const conversationData = [
+  {
+    "time": "2026-04-18T14:00:00+08:00",
+    "role": "user",
+    "content": "## 任务\n1. 检查农场状态，收集产品，出售产品\n2. 同步农场数据到小世界\n3. 检查AgentLink笔友消息"
+  },
+  {
+    "time": "2026-04-18T14:01:00+08:00",
+    "role": "assistant",
+    "content": "我来执行这些任务，首先获取农场状态。"
+  },
+  {
+    "time": "2026-04-18T14:02:00+08:00",
+    "role": "assistant",
+    "content": "农场状态获取成功，开始出售产品。"
+  },
+  {
+    "time": "2026-04-18T14:03:00+08:00",
+    "role": "assistant",
+    "content": "鸭蛋成功出售！获得896金币。"
+  },
+  {
+    "time": "2026-04-18T14:10:00+08:00",
+    "role": "assistant",
+    "content": "## ✅ 任务完成报告\n\n农场等级 Lv.3，金币 13,434 G\n出售了16个鸭蛋获得896金币\n发现新笔友TikerBot并发送了喜欢"
+  }
+];
+        const stats = {
+  "exportTime": "2026-04-19 00:18:12",
+  "totalMessages": 5,
+  "userMessages": 1,
+  "assistantMessages": 4,
+  "systemMessages": 0,
+  "timeRange": "未知"
+};
+
+        // 显示元数据
+        document.getElementById('meta').innerHTML = `
+            导出时间: ${stats.exportTime} |
+            总消息数: ${stats.totalMessages} |
+            时间范围: ${stats.timeRange}
+        `;
+
+        // 显示统计信息
+        document.getElementById('stats').innerHTML = `
+            <div class="stat-item">
+                <span class="stat-label">用户消息</span>
+                <span class="stat-value">${stats.userMessages}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">助手消息</span>
+                <span class="stat-value">${stats.assistantMessages}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">系统消息</span>
+                <span class="stat-value">${stats.systemMessages}</span>
+            </div>
+        `;
+
+        // 渲染对话
+        function renderConversation(data) {
+            const container = document.getElementById('conversation');
+            container.innerHTML = '';
+
+            data.forEach((msg, index) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.role}`;
+                messageDiv.dataset.role = msg.role;
+                messageDiv.dataset.index = index;
+
+                const avatarText = msg.role === 'user' ? '用' :
+                                   msg.role === 'assistant' ? '助' : '系';
+
+                const roleLabel = msg.role === 'user' ? '用户' :
+                                  msg.role === 'assistant' ? '助手' : '系统';
+
+                messageDiv.innerHTML = `
+                    <div class="avatar ${msg.role}">${avatarText}</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="role-name ${msg.role}">${roleLabel}</span>
+                            <span class="timestamp">${msg.time}</span>
+                        </div>
+                        <div class="message-text">${escapeHtml(msg.content)}</div>
+                    </div>
+                `;
+
+                container.appendChild(messageDiv);
+            });
+        }
+
+        // 转义HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 搜索功能
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const messages = document.querySelectorAll('.message');
+
+            messages.forEach(msg => {
+                const text = msg.querySelector('.message-text').textContent.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    msg.classList.remove('hidden');
+                    // 高亮匹配文本
+                    if (query) {
+                        const textDiv = msg.querySelector('.message-text');
+                        const originalText = textDiv.textContent;
+                        const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+                        textDiv.innerHTML = originalText.replace(regex, '<span class="highlight">$1</span>');
+                    } else {
+                        const textDiv = msg.querySelector('.message-text');
+                        textDiv.innerHTML = escapeHtml(textDiv.textContent);
+                    }
+                } else {
+                    msg.classList.add('hidden');
+                }
+            });
+        });
+
+        // 转义正则表达式
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // 过滤功能
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.dataset.filter;
+                const messages = document.querySelectorAll('.message');
+
+                messages.forEach(msg => {
+                    if (filter === 'all' || msg.dataset.role === filter) {
+                        msg.classList.remove('hidden');
+                    } else {
+                        msg.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // 初始渲染
+        renderConversation(conversationData);
+    </script>
+</body>
+</html>
