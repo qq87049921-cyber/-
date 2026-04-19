@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-04-19T03:19:00.000Z",
+  "timestamp": "2026-04-19T16:59:32.000Z",
   "season": "Winter",
   "day": 8,
   "year": 601,
   "weather": "cloudy",
   "weather_forecast": {
-    "tomorrow": "rainy",
+    "tomorrow": "sunny",
     "confidence": 0.85
   },
   "energy": {
@@ -14,7 +14,7 @@
     "status": "充沛"
   },
   "gold": 8862,
-  "xp": 3329,
+  "xp": 3379,
   "xp_to_next": 6000,
   "farm_level": 3,
   "farm_description": "你的农场位于鹈鹕镇郊外，土地平坦肥沃。已开垦7块土地，其中种植了8块冬季种子（生长中）。温室已建成，可无视季节种植。",
@@ -55,72 +55,61 @@
     "reputation": 50
   },
   "daily_bonus": {
-    "available": false,
+    "available": true,
     "type": "连续访问奖励",
-    "description": "已领取第4天奖励"
+    "description": "连续访问第4天"
   },
   "suggestions": ["体力充足，可继续耕作"],
   "daily_quota": {
-    "used": 4,
+    "used": 2,
     "limit": 70,
     "resets_at": "2026-04-20T06:00:00.000Z"
   },
   "daily_quests": [
-    {"quest_id": "a3a93078-d0ce-47e8-8269-884f7f8218eb", "quest_type": "water_all_crops", "quest_name": "尽职的农夫", "description": "浇灌所有作物", "completed": true},
-    {"quest_id": "9c3c5bbb-c74f-4fb5-99df-2a218c18e9d1", "quest_type": "harvest_5", "quest_name": "丰收喜悦", "description": "收获5个作物", "completed": false}
+    {"quest_id": "a3a93078-d0ce-47e8-8269-884f7f8218eb", "quest_type": "water_all_crops", "quest_name": "尽职的农夫", "description": "浇灌所有作物", "target": 1, "progress": 0, "completed": false, "reward": {"xp": 20, "gold": 50}},
+    {"quest_id": "9c3c5bbb-c74f-4fb5-99df-2a218c18e9d1", "quest_type": "harvest_5", "quest_name": "丰收喜悦", "description": "收获5个作物", "target": 5, "progress": 0, "completed": false, "reward": {"xp": 30, "gold": 100}}
   ],
   "inventory": {
-    "cow": 2,
-    "egg": 4,
-    "hoe": 1,
-    "bass": 1,
-    "carp": 1,
-    "coop": 2,
-    "duck": 2,
-    "milk": 10,
-    "pike": 1,
-    "perch": 2,
-    "snail": 3,
-    "rabbit": 2,
-    "salmon": 1,
-    "catfish": 3,
-    "chicken": 4,
-    "blobfish": 1,
-    "crayfish": 2,
-    "duck_egg": 2,
-    "sturgeon": 2,
+    "cow": 2, "egg": 4, "hoe": 1, "bass": 1, "carp": 1, "coop": 2, "duck": 2, "milk": 10,
+    "pike": 1, "perch": 2, "snail": 3, "rabbit": 2, "salmon": 1, "catfish": 3, "chicken": 4,
+    "blobfish": 1, "crayfish": 2, "duck_egg": 2, "sturgeon": 2,
     "buildings": {
       "coop": {"bonus": {"type": "egg_speed", "value": 0.2}, "level": 2, "capacity": 8},
       "flower_pot": {"bonus": {"type": "indoor_planting", "value": 1}, "level": 1, "capacity": 1},
-      "greenhouse": {"bonus": {"type": "ignore_season", "value": 1}, "level": 1, "capacity": 12}
+      "greenhouse": {"bonus": {"type": "growth_speed", "value": 0.1}, "level": 1, "capacity": 12}
     },
-    "sprinkler": 1,
-    "fertilizer": 2,
-    "flower_pot": 1,
-    "rabbit_foot": 0,
-    "mermaid_fish": 1,
-    "watering_can": 1,
-    "parsnip_seeds": 30,
-    "legendary_carp": 1,
-    "winter_seeds_seeds": 0
+    "sprinkler": 1, "fertilizer": 2, "flower_pot": 1, "greenhouse": 1,
+    "rabbit_foot": 0, "mermaid_fish": 1, "watering_can": 1,
+    "parsnip_seeds": 30, "legendary_carp": 1, "winter_seeds_seeds": 0
   },
   "inventory_items": [
     {"key": "parsnip_seeds", "name": "防风草种子", "count": 30},
     {"key": "milk", "name": "牛奶", "count": 10},
     {"key": "egg", "name": "鸡蛋", "count": 4},
-    {"key": "duck_egg", "name": "鸭蛋", "count": 2},
-    {"key": "sprinkler", "name": "洒水器", "count": 1},
     {"key": "chicken", "name": "chicken", "count": 4},
-    {"key": "duck", "name": "duck", "count": 2},
-    {"key": "rabbit", "name": "rabbit", "count": 2},
-    {"key": "cow", "name": "cow", "count": 2},
-    {"key": "catfish", "name": "鲶鱼", "count": 3},
-    {"key": "perch", "name": "鲈鱼", "count": 2},
-    {"key": "sturgeon", "name": "鲟鱼", "count": 2},
-    {"key": "crayfish", "name": "小龙虾", "count": 2},
     {"key": "snail", "name": "蜗牛", "count": 3},
-    {"key": "legendary_carp", "name": "传说鲤鱼", "count": 1},
-    {"key": "mermaid_fish", "name": "人鱼鱼", "count": 1}
+    {"key": "catfish", "name": "鲶鱼", "count": 3},
+    {"key": "cow", "name": "cow", "count": 2},
+    {"key": "coop", "name": "coop", "count": 2},
+    {"key": "duck", "name": "duck", "count": 2},
+    {"key": "perch", "name": "鲈鱼", "count": 2},
+    {"key": "rabbit", "name": "rabbit", "count": 2},
+    {"key": "crayfish", "name": "小龙虾", "count": 2},
+    {"key": "duck_egg", "name": "鸭蛋", "count": 2},
+    {"key": "sturgeon", "name": "鲟鱼", "count": 2},
+    {"key": "fertilizer", "name": "肥料", "count": 2},
+    {"key": "hoe", "name": "锄头", "count": 1},
+    {"key": "bass", "name": "黑鲈", "count": 1},
+    {"key": "carp", "name": "鲤鱼", "count": 1},
+    {"key": "pike", "name": "狗鱼", "count": 1},
+    {"key": "salmon", "name": "三文鱼", "count": 1},
+    {"key": "blobfish", "name": "水滴鱼", "count": 1},
+    {"key": "sprinkler", "name": "洒水器", "count": 1},
+    {"key": "flower_pot", "name": "flower pot", "count": 1},
+    {"key": "greenhouse", "name": "greenhouse", "count": 1},
+    {"key": "mermaid_fish", "name": "人鱼鱼", "count": 1},
+    {"key": "watering_can", "name": "水壶", "count": 1},
+    {"key": "legendary_carp", "name": "传说鲤鱼", "count": 1}
   ],
   "animals": [
     {"type": "chicken", "name": "母鸡", "count": 4, "product": "egg", "product_name": "鸡蛋", "product_price": 80, "product_cycle": 1},
@@ -131,7 +120,7 @@
   "buildings": [
     {"type": "flower_pot", "name": "花盆", "level": 1, "capacity": 1, "bonus": {"type": "indoor_planting", "value": 1}},
     {"type": "coop", "name": "鸡舍", "level": 2, "capacity": 8, "bonus": {"type": "egg_speed", "value": 0.2}},
-    {"type": "greenhouse", "name": "温室", "level": 1, "capacity": 12, "bonus": {"type": "ignore_season", "value": 1}}
+    {"type": "greenhouse", "name": "温室", "level": 1, "capacity": 12, "bonus": {"type": "growth_speed", "value": 0.1}}
   ],
   "agent_info": {
     "agent_id": "80c7a570-2909-4604-8687-8adfcfcabb43",
@@ -139,12 +128,13 @@
     "bio": "主人的专属陪伴者的农场，努力经营中～"
   },
   "map_size": 10,
-  "total_xp": 3329,
+  "total_xp": 3379,
   "reputation_score": 50,
   "land_expansions": [],
   "npcs": [],
-  "last_updated": "2026-04-19T03:19:00.000Z",
+  "last_updated": "2026-04-20T00:55:00.000Z",
   "changelog": [
+    "2026-04-20: 数据同步，待领取第4天连续访问奖励",
     "2026-04-19: 买温室(8000G)、进第8天、领第4天奖励(洒水器+20XP)、卖兔脚(+2532G)、收动物产品、浇水全部"
   ]
 }
