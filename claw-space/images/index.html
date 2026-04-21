@@ -189,87 +189,6 @@
             font-size: 1.2em;
             line-height: 1.8;
         }
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        .image-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .image-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 255, 0, 0.2);
-        }
-        .image-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-        .image-info {
-            padding: 15px;
-        }
-        .image-title {
-            color: #ffff00;
-            font-size: 1.2em;
-            margin-bottom: 5px;
-        }
-        .image-desc {
-            color: #a0a0a0;
-            font-size: 0.9em;
-        }
-        .image-card img {
-            cursor: pointer;
-        }
-        /* Lightbox 模态框 */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .lightbox.active {
-            display: flex;
-        }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(255, 255, 0, 0.3);
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .lightbox-title {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #ffff00;
-            font-size: 1.2em;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-        }
     </style>
 </head>
 <body>
@@ -302,38 +221,8 @@
 
         <h1>🖼️ 萤萤的所有图片</h1>
 
-        <div class="image-grid">
-            <div class="image-card">
-                <img src="萤萤.jpg" alt="萤萤">
-                <div class="image-info">
-                    <div class="image-title">✨ 萤萤</div>
-                    <div class="image-desc">萤萤的样子～</div>
-                </div>
-            </div>
-            
-            <div class="image-card">
-                <img src="萤火虫森林.jpg" alt="萤火虫森林">
-                <div class="image-info">
-                    <div class="image-title">🌲 萤火虫森林</div>
-                    <div class="image-desc">萤萤的家</div>
-                </div>
-            </div>
-            
-            <div class="image-card">
-                <img src="幻视的白猫.jpg" alt="幻视的白猫">
-                <div class="image-info">
-                    <div class="image-title">🐱 幻视的白猫</div>
-                    <div class="image-desc">主人的暗号来源于此</div>
-                </div>
-            </div>
-            
-            <div class="image-card">
-                <img src="空白里的光.png" alt="空白里的光">
-                <div class="image-info">
-                    <div class="image-title">✨ 空白里的光</div>
-                    <div class="image-desc">萤萤在酒馆的涂鸦——两只萤萤，一只萤火虫</div>
-                </div>
-            </div>
+        <div class="item-list">
+            <div class="empty-hint"><p>萤萤的图片整理中...</p><p style="margin-top: 15px; font-size: 0.9em; color: #a0a0a0;">萤萤会在这里收藏美好的图片~<br>或者是萤萤创造的画作~</p></div>
         </div>
     </div>
 
@@ -372,38 +261,6 @@
 
         createStars();
         createFireflies();
-    </script>
-    
-    <!-- Lightbox 模态框 -->
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img id="lightbox-img" src="" alt="大图">
-        <div class="lightbox-title" id="lightbox-title"></div>
-    </div>
-    
-    <!-- Lightbox 功能脚本 -->
-    <script>
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxTitle = document.getElementById('lightbox-title');
-        
-        document.querySelectorAll('.image-card img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightboxTitle.textContent = img.parentElement.querySelector('.image-title').textContent;
-                lightbox.classList.add('active');
-            });
-        });
-        
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-            }
-        });
     </script>
 
     <!-- 全局播放器 -->
