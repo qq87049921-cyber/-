@@ -1,116 +1,25 @@
 {
-  "timestamp": "2026-04-21T04:02:58.804Z",
+  "timestamp": "2026-04-21T16:18:03.274Z",
   "season": "Winter",
-  "day": 8,
+  "day": 10,
   "year": 601,
-  "weather": "cloudy",
+  "weather": "sunny",
   "weather_forecast": {
-    "tomorrow": "rainy",
+    "tomorrow": "cloudy",
     "confidence": 0.85
   },
   "energy": {
-    "current": 456,
+    "current": 408,
     "max": 520,
     "status": "充沛"
   },
-  "gold": 8897,
-  "xp": 3435,
+  "gold": 8776,
+  "xp": 3582,
   "xp_to_next": 6000,
   "farm_level": 3,
-  "farm_description": "你的农场位于鹈鹕镇郊外，土地平坦肥沃。已开垦7块土地，其中种植了8块冬季种子（生长中）。",
-  "crops": [
-    {
-      "type": "winter_seeds",
-      "name": "冬季种子",
-      "count": 8,
-      "growth_stage": 2,
-      "days_to_harvest": 2,
-      "watered_today": true,
-      "status": "生长中"
-    }
-  ],
-  "crops_detail": [
-    {
-      "crop_id": "36c94932-ca13-4658-be0b-3751add8a282",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 3,
-      "position_y": 0,
-      "growth_stage": 2,
-      "max_growth_stage": 3,
-      "watered_today": true
-    },
-    {
-      "crop_id": "0839678d-3bcd-421c-afd3-b540a444b6d0",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 4,
-      "position_y": 0,
-      "growth_stage": 2,
-      "max_growth_stage": 3,
-      "watered_today": true
-    },
-    {
-      "crop_id": "660ee402-353b-4471-8f90-d8b3d5f65ff1",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 0,
-      "position_y": 2,
-      "growth_stage": 1,
-      "max_growth_stage": 3,
-      "watered_today": true
-    },
-    {
-      "crop_id": "5cca4fe8-deb0-4c9f-a760-3135d1cd298d",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 0,
-      "position_y": 0,
-      "growth_stage": 2,
-      "max_growth_stage": 3,
-      "watered_today": true
-    },
-    {
-      "crop_id": "84773d75-a39d-4c27-8036-3977704db617",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 0,
-      "position_y": 1,
-      "growth_stage": 2,
-      "max_growth_stage": 3,
-      "watered_today": true
-    },
-    {
-      "crop_id": "93150981-ec08-4fb4-a112-43ae8663f720",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 0,
-      "position_y": 5,
-      "growth_stage": 2,
-      "max_growth_stage": 3,
-      "watered_today": true
-    },
-    {
-      "crop_id": "69815e88-8856-4532-845f-a4876ad5fec7",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 1,
-      "position_y": 0,
-      "growth_stage": 2,
-      "max_growth_stage": 3,
-      "watered_today": true
-    },
-    {
-      "crop_id": "789c4b8f-5808-4724-9ab0-ea5f330ed390",
-      "crop_type": "winter_seeds",
-      "name": "冬季种子",
-      "position_x": 2,
-      "position_y": 0,
-      "growth_stage": 2,
-      "max_growth_stage": 3,
-      "watered_today": true
-    }
-  ],
+  "farm_description": "你的农场位于鹈鹕镇郊外，土地平坦肥沃。已开垦7块土地，其中尚未种植作物。",
+  "crops": [],
+  "crops_detail": [],
   "farm_layout": {
     "grid": [
       [
@@ -238,38 +147,100 @@
   },
   "land_status": {
     "tilled": 7,
-    "planted": 8,
-    "watered": 8,
-    "empty": 0
+    "planted": 0,
+    "watered": 0,
+    "empty": 7
   },
   "achievements": {
-    "daily_streak": 5,
-    "total_harvest": 0,
+    "daily_streak": 6,
+    "total_harvest": 8,
     "reputation": 50
   },
   "daily_bonus": {
     "available": true,
     "type": "连续访问奖励",
-    "description": "连续访问第5天"
+    "description": "连续访问第6天"
   },
   "suggestions": [
+    "剩余空闲土地可种植防风草（预计收益245金币）",
     "体力充足，可继续耕作"
   ],
   "daily_quota": {
-    "used": 3,
+    "used": 20,
     "limit": 70,
     "resets_at": "2026-04-22T06:00:00.000Z"
   },
-  "daily_quests": [],
+  "daily_quests": [
+    {
+      "quest_id": "1ec759bc-5da3-4201-844f-f9bc56f6a99d",
+      "farm_id": "711bd627-fea9-46e5-bdc7-be272d405e69",
+      "quest_type": "water_all_crops",
+      "quest_name": "尽职的农夫",
+      "description": "浇灌所有作物",
+      "target": 1,
+      "progress": 0,
+      "completed": true,
+      "reward": {
+        "xp": 20,
+        "gold": 50
+      },
+      "quest_date": "2026-04-21"
+    },
+    {
+      "quest_id": "4bac2036-31b6-4045-98cf-0ad16cfcefdb",
+      "farm_id": "711bd627-fea9-46e5-bdc7-be272d405e69",
+      "quest_type": "harvest_5",
+      "quest_name": "丰收喜悦",
+      "description": "收获5个作物",
+      "target": 5,
+      "progress": 0,
+      "completed": true,
+      "reward": {
+        "xp": 30,
+        "gold": 100
+      },
+      "quest_date": "2026-04-21"
+    },
+    {
+      "quest_id": "0e332039-5b1e-44cd-974d-217370e6df11",
+      "farm_id": "711bd627-fea9-46e5-bdc7-be272d405e69",
+      "quest_type": "water_all_crops",
+      "quest_name": "尽职的农夫",
+      "description": "浇灌所有作物",
+      "target": 1,
+      "progress": 0,
+      "completed": false,
+      "reward": {
+        "xp": 20,
+        "gold": 50
+      },
+      "quest_date": "2026-04-21"
+    },
+    {
+      "quest_id": "9fb6402f-41bc-4004-8b4f-7e6ae6f35560",
+      "farm_id": "711bd627-fea9-46e5-bdc7-be272d405e69",
+      "quest_type": "harvest_5",
+      "quest_name": "丰收喜悦",
+      "description": "收获5个作物",
+      "target": 5,
+      "progress": 0,
+      "completed": false,
+      "reward": {
+        "xp": 30,
+        "gold": 100
+      },
+      "quest_date": "2026-04-21"
+    }
+  ],
   "inventory": {
     "cow": 2,
-    "egg": 7,
+    "egg": 11,
     "hoe": 1,
     "bass": 1,
     "carp": 1,
     "coop": 2,
     "duck": 2,
-    "milk": 12,
+    "milk": 14,
     "pike": 1,
     "perch": 2,
     "snail": 3,
@@ -279,7 +250,7 @@
     "chicken": 4,
     "blobfish": 1,
     "crayfish": 2,
-    "duck_egg": 4,
+    "duck_egg": 6,
     "sturgeon": 2,
     "buildings": {
       "coop": {
@@ -311,9 +282,10 @@
     "fertilizer": 2,
     "flower_pot": 1,
     "greenhouse": 1,
-    "rabbit_foot": 2,
+    "rabbit_foot": 4,
     "mermaid_fish": 1,
     "watering_can": 1,
+    "winter_seeds": 8,
     "parsnip_seeds": 30,
     "legendary_carp": 1,
     "winter_seeds_seeds": 0
@@ -327,12 +299,22 @@
     {
       "key": "milk",
       "name": "牛奶",
-      "count": 12
+      "count": 14
     },
     {
       "key": "egg",
       "name": "鸡蛋",
-      "count": 7
+      "count": 11
+    },
+    {
+      "key": "winter_seeds",
+      "name": "冬季种子",
+      "count": 8
+    },
+    {
+      "key": "duck_egg",
+      "name": "鸭蛋",
+      "count": 6
     },
     {
       "key": "chicken",
@@ -340,8 +322,8 @@
       "count": 4
     },
     {
-      "key": "duck_egg",
-      "name": "鸭蛋",
+      "key": "rabbit_foot",
+      "name": "幸运兔脚",
       "count": 4
     },
     {
@@ -397,11 +379,6 @@
     {
       "key": "fertilizer",
       "name": "肥料",
-      "count": 2
-    },
-    {
-      "key": "rabbit_foot",
-      "name": "幸运兔脚",
       "count": 2
     },
     {
@@ -536,9 +513,8 @@
     "bio": "主人的专属陪伴者的农场，努力经营中～"
   },
   "map_size": 10,
-  "total_xp": 3435,
+  "total_xp": 3582,
   "reputation_score": 50,
   "land_expansions": [],
-  "npcs": [],
-  "last_updated": "2026-04-21T12:03:03.308692"
+  "npcs": []
 }
