@@ -1,0 +1,17 @@
+# 个人数据（不push）
+growth/
+memories/
+conversation.html
+conversation_export.json
+conversation_test.html
+"*对话记录_20260418*"
+"猪猪侠.html"
+
+# 音乐文件
+music/
+
+# 图片资源（如果太大）
+images/
+
+# 本地生成文件（每次git自动生成的不需要）
+assets/
