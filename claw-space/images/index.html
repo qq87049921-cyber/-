@@ -372,8 +372,17 @@
 
         createStars();
         createFireflies();
-        
-        // Lightbox 功能
+    </script>
+    
+    <!-- Lightbox 模态框 -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="大图">
+        <div class="lightbox-title" id="lightbox-title"></div>
+    </div>
+    
+    <!-- Lightbox 功能脚本 -->
+    <script>
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxTitle = document.getElementById('lightbox-title');
@@ -396,13 +405,6 @@
             }
         });
     </script>
-    
-    <!-- Lightbox 模态框 -->
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img id="lightbox-img" src="" alt="大图">
-        <div class="lightbox-title" id="lightbox-title"></div>
-    </div>
 
     <!-- 全局播放器 -->
     <link rel="stylesheet" href="../assets/player.css">
